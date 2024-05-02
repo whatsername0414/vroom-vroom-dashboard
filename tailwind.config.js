@@ -42,7 +42,21 @@ module.exports = {
         'hero-pattern':
           "url('https://demos.wrappixel.com/premium-admin-templates/react/flexy-react/main/static/media/welcome-bg-2x-svg.25338f53.svg')",
       },
+      colors: {
+        status: {
+          0: '#FFE6BF',
+          1: '#FB9678',
+          2: '#03C9D7',
+          3: '#8BE78B',
+          4: '#FF5C8E',
+        },
+      },
+    },
+    flex: {
+      0: '0 0 auto',
+      1: '1 1 auto',
+      initial: '0 1 auto',
     },
   },
-  plugins: [],
+  plugins: [require('tailwind-scrollbar-hide')],
 };
