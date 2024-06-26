@@ -161,18 +161,6 @@ const Merchant = () => {
                     Edit
                   </button>
                 </h1>
-                <div class="w-full text-center">
-                  {merchant.categories.map((category) => {
-                    return (
-                      <p
-                        class="text-gray-400 w-full dark:text-gray-400 font-light"
-                        key={category._id}
-                      >
-                        {category.name}
-                      </p>
-                    );
-                  })}
-                </div>
                 <p class="text-gray-600 dark:text-gray-200 mt-4 mb-2 text-sm">
                   {`${utils.formatTime(
                     moment

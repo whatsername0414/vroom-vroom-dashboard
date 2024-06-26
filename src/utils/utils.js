@@ -8,7 +8,7 @@ export const formatTime = (time) => {
 };
 
 export const getImageUrl = (imageName) => {
-  return `http://192.168.1.12:5000/public/images/${imageName}`;
+  return `http://192.168.1.26:5000/public/images/${imageName}`;
 };
 
 export const getOrderStatus = (status) => {
