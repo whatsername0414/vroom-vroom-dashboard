@@ -12,7 +12,7 @@ import {
   Merchant,
   CreateProduct,
   Product,
-  Customers,
+  Riders,
   Auth,
   Register,
 } from './pages';
@@ -102,11 +102,10 @@ const App = () => {
                       path="/merchants/:id/products/:sectionId/:productId"
                       element={<Product />}
                     />
-                    <Route path="/customers" element={<Customers />} />
+                    <Route path="/riders" element={<Riders />} />
                   </Route>
                 </Routes>
               </div>
-              {user && <Footer />}
             </div>
           </div>
         </div>

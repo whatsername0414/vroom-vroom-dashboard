@@ -154,7 +154,6 @@ export const editProductSections =
           body,
           config
         );
-        console.log(data.data.data[0]);
         res = data.data.data[0];
       } else {
         const data = await api.deleteProductSection(
@@ -180,7 +179,7 @@ export const editProductSections =
   };
 
 export const createProduct =
-  (id, productSectionId, product) => async (dispatch, getState) => {
+  (merchantId, productSectionId, product) => async (dispatch, getState) => {
     try {
       dispatch({ type: 'CREATE_PRODUCT_LOADING' });
       const {
@@ -199,16 +198,22 @@ export const createProduct =
           data: { data },
         } = await api.upload(formData, config);
         product.image = data;
-        const body = { product };
+        const body = {
+          productSectionId: productSectionId,
+          product: product,
+        };
         const {
           data: { data: productId },
-        } = await api.createProduct(id, productSectionId, body, config);
+        } = await api.createProduct(merchantId, body, config);
         dispatch({ type: 'CREATE_PRODUCT', payload: productId });
       } else {
-        const body = { product };
+        const body = {
+          productSectionId: productSectionId,
+          product,
+        };
         const {
           data: { data: productId },
-        } = await api.createProduct(id, productSectionId, body, config);
+        } = await api.createProduct(merchantId, body, config);
         dispatch({ type: 'CREATE_PRODUCT', payload: productId });
       }
     } catch (error) {
@@ -223,7 +228,7 @@ export const createProduct =
   };
 
 export const updateProduct =
-  (id, productSectionId, product) => async (dispatch, getState) => {
+  (merchantId, product) => async (dispatch, getState) => {
     try {
       dispatch({ type: 'UPDATE_PRODUCT_LOADING' });
       const {
@@ -243,23 +248,11 @@ export const updateProduct =
         } = await api.upload(formData, config);
         product.image = data;
         const body = { product };
-        const { status } = await api.updateProduct(
-          id,
-          productSectionId,
-          product._id,
-          body,
-          config
-        );
+        const { status } = await api.updateProduct(merchantId, body, config);
         dispatch({ type: 'UPDATE_PRODUCT', payload: status === 200 });
       } else {
         const body = { product };
-        const { status } = await api.updateProduct(
-          id,
-          productSectionId,
-          product._id,
-          body,
-          config
-        );
+        const { status } = await api.updateProduct(merchantId, body, config);
         dispatch({ type: 'UPDATE_PRODUCT', payload: status === 200 });
       }
     } catch (error) {
@@ -274,24 +267,22 @@ export const updateProduct =
   };
 
 export const deleteProduct =
-  (id, productId, productSectionId) => async (dispatch, getState) => {
+  (merchantId, productId, productSectionId) => async (dispatch, getState) => {
     try {
       dispatch({ type: 'DELETE_PRODUCT_LOADING' });
       const {
         auth: { user },
       } = getState();
-
+      const body = {
+        productSectionId: productSectionId,
+        productId: productId,
+      };
       const config = {
         headers: {
           Authorization: `Bearer ${user.token}`,
         },
       };
-      const { status } = await api.deleteProduct(
-        id,
-        productSectionId,
-        productId,
-        config
-      );
+      const { status } = await api.deleteProduct(merchantId, body, config);
       dispatch({ type: 'DELETE_PRODUCT', payload: status === 204 });
     } catch (error) {
       const message = error.response.data?.data

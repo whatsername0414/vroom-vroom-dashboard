@@ -76,7 +76,6 @@ export const confirmOrder = (id) => async (dispatch, getState) => {
     const { data } = await api.confirmOrder(id, config);
     dispatch({ type: 'ORDER', payload: data.data });
   } catch (error) {
-    console.log(error);
     const message = error?.response?.data?.data
       ? error.response.data.data.message
       : error.message;

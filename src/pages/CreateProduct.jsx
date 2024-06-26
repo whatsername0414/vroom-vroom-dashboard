@@ -119,10 +119,10 @@ const Product = () => {
     if (productId) {
       const updatedProduct = {
         ...currentProduct,
-        _id: productId,
+        id: productId,
         option_sections: optionSections,
       };
-      dispatch(updateProduct(id, sectionId, updatedProduct));
+      dispatch(updateProduct(id, updatedProduct));
     } else {
       const createdProduct = {
         ...currentProduct,
@@ -134,7 +134,7 @@ const Product = () => {
 
   const getImage = (e) => {
     const file = e.target.files[0];
-    setCurrentProduct({ ...currentProduct, product_img_url: file });
+    setCurrentProduct({ ...currentProduct, image: file });
     setImagePreview(URL.createObjectURL(e.target.files[0]));
   };
 
@@ -238,14 +238,10 @@ const Product = () => {
                 <label class="text-gray-700 dark:text-gray-200">Image</label>
                 <div className="mt-2 flex justify-center px-6 pt-5 pb-6 border-2 border-gray-300 border-dashed rounded-md">
                   <div className="space-y-1 text-center">
-                    {currentProduct?.product_img_url ? (
+                    {currentProduct?.image ? (
                       <img
                         alt="productImage"
-                        src={
-                          imagePreview
-                            ? imagePreview
-                            : currentProduct.product_img_url
-                        }
+                        src={imagePreview ? imagePreview : currentProduct.image}
                         class="mx-auto object-cover rounded-full h-12 w-12 border border-gray-200"
                       />
                     ) : (
@@ -270,7 +266,7 @@ const Product = () => {
                         className="relative cursor-pointer rounded-md text-indigo-600 hover:text-indigo-500 focus-within:outline-none focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-indigo-500"
                       >
                         <span>
-                          {currentProduct?.product_img_url
+                          {currentProduct?.image
                             ? 'Change image'
                             : 'Upload image'}
                         </span>

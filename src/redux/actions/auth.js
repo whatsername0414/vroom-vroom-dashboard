@@ -21,7 +21,6 @@ export const register = (body) => async (dispatch) => {
     dispatch({ type: 'USER_LOADING' });
     const { data } = await api.register({
       ...body,
-      emailAddress: 'mebanas@highlysucceed.com',
     });
     dispatch({ type: 'USER', payload: data.data });
     localStorage.setItem('userInfo', JSON.stringify(data.data));
@@ -31,6 +30,24 @@ export const register = (body) => async (dispatch) => {
       : error.message;
     dispatch({
       type: 'USER_ERROR',
+      payload: message,
+    });
+  }
+};
+export const registerRider = (body) => async (dispatch) => {
+  console.log(body);
+  try {
+    dispatch({ type: 'REGISTER_RIDER_LOADING' });
+    const { data } = await api.register({
+      ...body,
+    });
+    dispatch({ type: 'REGISTER_RIDER', payload: data.data });
+  } catch (error) {
+    const message = error?.response?.data?.data
+      ? error.response.data.data.message
+      : error.message;
+    dispatch({
+      type: 'REGISTER_RIDER_ERROR',
       payload: message,
     });
   }

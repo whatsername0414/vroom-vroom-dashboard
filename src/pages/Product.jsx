@@ -110,7 +110,7 @@ const Product = () => {
       ...currentProduct,
       option_sections: optionSections,
     };
-    dispatch(updateProduct(id, sectionId, updatedProduct));
+    dispatch(updateProduct(id, updatedProduct));
   };
 
   const getImage = (e) => {
@@ -420,20 +420,20 @@ const Product = () => {
               />
               <div className="space-x-2">
                 <button
-                  style={{ backgroundColor: currentColor }}
-                  type="button"
-                  className="text-center h-10 w-32 py-2 px-4 border border-transparent shadow-sm text-sm rounded-2xl text-white focus:outline-none focus:ring-transparent"
-                  onClick={handleOnSave}
-                >
-                  Save
-                </button>
-                <button
                   style={{ borderColor: currentColor, color: currentColor }}
                   type="button"
                   className="text-center h-10 w-32 py-2 px-4 border-2 shadow-sm text-sm rounded-2xl text-white focus:outline-none focus:ring-transparent"
                   onClick={() => setDialogShown(true)}
                 >
                   Delete
+                </button>
+                <button
+                  style={{ backgroundColor: currentColor }}
+                  type="button"
+                  className="text-center h-10 w-32 py-2 px-4 border border-transparent shadow-sm text-sm rounded-2xl text-white focus:outline-none focus:ring-transparent"
+                  onClick={handleOnSave}
+                >
+                  Save
                 </button>
               </div>
             </div>

@@ -11,6 +11,7 @@ import { useEffect } from 'react';
 import { Loading, Header } from '../components';
 import OrderProducts from '../components/OrderProducts';
 import { useStateContext } from '../contexts/ContextProvider';
+import { getOrderStatus } from '../utils/utils';
 
 const Order = () => {
   const { currentColor, currentMode } = useStateContext();
@@ -30,7 +31,7 @@ const Order = () => {
             <div className="flex flex-row justify-between">
               <div>
                 <p className="text-xl text-gray-700 dark:text-white">
-                  {order.status.label}
+                  {getOrderStatus(order.status)}
                 </p>
                 <p className="mb-8 text-sm text-gray-500 dark:text-gray-200">
                   Placed on: {moment(order.created_at).format('llll')}
@@ -69,10 +70,10 @@ const Order = () => {
                     {order.merchant.name}
                   </p>
                   <p className="text-sm text-gray-500 dark:text-gray-200">
-                    Merchant
+                    Restaurant
                   </p>
                   <p className="text-sm text-gray-500 dark:text-gray-400 max-w-xs py-4">
-                    {order.customer.phone.number}
+                    Tabaco City
                   </p>
                 </div>
               </div>
@@ -85,13 +86,16 @@ const Order = () => {
                 </div>
                 <div className="text-center">
                   <p className="text-l text-gray-800 dark:text-gray-200">
-                    {order.payment.method}
+                    Cash On Delivery
                   </p>
                   <p className="text-sm text-gray-500 dark:text-gray-200 font-light">
                     Delivery
                   </p>
-                  <p className="text-sm text-gray-500 dark:text-gray-400 max-w-xs py-4 font-light">
-                    {`${order.delivery_address.address} ${order.delivery_address.city}`}
+                  <p className="text-sm text-gray-500 dark:text-gray-400 max-w-xs pt-4 font-light">
+                    {order.address.street},
+                  </p>
+                  <p className="text-sm text-gray-500 dark:text-gray-400 font-light">
+                    {order.address.city}
                   </p>
                 </div>
               </div>
@@ -99,36 +103,42 @@ const Order = () => {
             <p className="text-xl text-gray-700 dark:text-gray-200 mb-8">
               Order Summary
             </p>
-            <OrderProducts products={order.order_detail.products} />
+            <OrderProducts products={order.products} />
             <div className="flex flex-col items-end mt-8">
               <div className="flex md:flex-row mr-16 w-1/2 justify-between my-1">
-                <p className="text-base text-gray-500 dark:text-gray-200">
+                <p className="text-sm text-gray-500 dark:text-gray-200">
                   SubTotal:
                 </p>
-                <p className="text-base text-gray-500 dark:text-gray-200">
-                  ₱{order.order_detail.total_price}
+                <p className="text-sm text-gray-500 dark:text-gray-200">
+                  ₱
+                  {order.products.reduce(
+                    (total, product) => total + product.price,
+                    0
+                  )}
                 </p>
               </div>
               <div className="flex md:flex-row mr-16 w-1/2 justify-between my-1">
-                <p className="text-base text-gray-500 dark:text-gray-200">
+                <p className="text-sm text-gray-500 dark:text-gray-200">
                   Delivery Fee:
                 </p>
-                <p className="text-base text-gray-500 dark:text-gray-200">
-                  ₱{order.order_detail.delivery_fee}
+                <p className="text-sm text-gray-500 dark:text-gray-200">
+                  ₱{order.delivery_fee}
                 </p>
               </div>
               <div className="flex md:flex-row mr-16 w-1/2 justify-between my-2">
-                <p className="text-l text-gray-800 dark:text-gray-200">
+                <p className="text-xl text-gray-800 dark:text-gray-200">
                   Total:
                 </p>
-                <p className="text-l text-gray-800 dark:text-gray-200">
+                <p className="text-xl text-gray-800 dark:text-gray-200">
                   ₱
-                  {order.order_detail.total_price +
-                    order.order_detail.delivery_fee}
+                  {order.products.reduce(
+                    (total, product) => total + product.price,
+                    0
+                  ) + order.delivery_fee}
                 </p>
               </div>
             </div>
-            {order.status.ordinal === 0 && (
+            {order.status === 0 && (
               <div className="px-4 py-2 mt-8 bg-light-gray text-right sm:px-6 rounded-2xl">
                 <button
                   style={{ backgroundColor: currentColor }}

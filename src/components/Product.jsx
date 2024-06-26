@@ -15,8 +15,8 @@ const Product = ({ defaultImage, product, productSectionId }) => {
           <img
             alt="profil"
             src={
-              product.product_img_url
-                ? getImageUrl(product.product_img_url)
+              product.image
+                ? getImageUrl(product.image)
                 : getImageUrl(defaultImage)
             }
             class="mx-auto object-cover rounded-full h-10 w-10 border border-gray-200"

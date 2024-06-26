@@ -12,6 +12,18 @@ export const authReducer = (state = {}, action) => {
       return state;
   }
 };
+export const registerRiderReducer = (state = {}, action) => {
+  switch (action.type) {
+    case 'REGISTER_RIDER_LOADING':
+      return { loading: true };
+    case 'REGISTER_RIDER':
+      return { loading: false, rider: action.payload };
+    case 'REGISTER_RIDER_ERROR':
+      return { loading: false, error: action.payload };
+    default:
+      return state;
+  }
+};
 export const getAuthCode = (state = {}, action) => {
   switch (action.type) {
     case 'AUTH_CODE_LOADING':

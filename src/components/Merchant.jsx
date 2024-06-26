@@ -9,19 +9,19 @@ import * as utils from '../utils/utils';
 const Merchant = ({ merchant }) => {
   momentDurationFormatSetup(moment);
   return (
-    <div class="p-4 relative transition duration-300 ease-in-out transform mt-16 hover:-translate-y-1">
+    <div class="relative transition duration-300 ease-in-out transform mt-16 hover:-translate-y-1">
       <div class="text-center mb-4 absolute -top-16 right-1/2 transform translate-x-1/2">
         <Link to={`/merchants/${merchant._id}`} class="block relative">
           <img
             alt="profil"
             src={utils.getImageUrl(merchant.image)}
             class={`mx-auto object-cover rounded-full h-40 w-40 border-4 border-color-${
-              merchant.isOpen ? 'open' : 'closed'
+              merchant.is_open ? 'open' : 'closed'
             }`}
           />
         </Link>
       </div>
-      <div class="bg-white dark:bg-gray-800 rounded-2xl shadow px-4 py-4 pt-24">
+      <div class="bg-white dark:bg-gray-800 rounded-2xl shadow mt-4 px-4 py-4 pt-24">
         <div class="text-center">
           <Link
             to={`/merchants/${merchant._id}`}
@@ -35,11 +35,11 @@ const Merchant = ({ merchant }) => {
                 class="text-sm text-gray-400 dark:text-gray-200 font-light"
                 key={category}
               >
-                {category}
+                {category.name}
               </p>
             );
           })}
-          <p class="text-gray-600 dark:text-white mt-4 text-sm">
+          <p class="text-gray-600 dark:text-white mt-2 text-sm">
             {`${utils.formatTime(
               moment.duration(merchant.opening, 'seconds').format('hh:mm', {
                 trim: false,
@@ -52,14 +52,28 @@ const Merchant = ({ merchant }) => {
               )}`}
           </p>
           <div class="flex border-gray-200 mx-auto mb-8 text-gray-400 items-center justify-center">
-            <Rating name="read-only" value={merchant.ratings} readOnly />
+            <Rating
+              name="read-only"
+              value={
+                merchant.reviews.reduce(
+                  (acc, review) => acc + review.rating,
+                  0
+                ) / merchant.reviews.length
+              }
+              readOnly
+            />
             <p class="text-sm text-gray-400 dark:text-gray-200 font-light ml-2">
               {`${
-                merchant.ratings
-                  ? parseFloat(merchant.ratings).toFixed(1)
+                merchant.reviews.reduce((acc, review) => acc + review.rating, 0)
+                  ? parseFloat(
+                      merchant.reviews.reduce(
+                        (acc, review) => acc + review.rating,
+                        0
+                      ) / merchant.reviews.length
+                    ).toFixed(1)
                   : parseFloat(0).toFixed(1)
-              } (${merchant.rates} ${
-                merchant.rates > 1 ? 'Reviews' : 'Review'
+              } (${merchant.reviews.length} ${
+                merchant.reviews.length > 1 ? 'Reviews' : 'Review'
               })`}
             </p>
           </div>

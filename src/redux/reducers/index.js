@@ -1,6 +1,5 @@
 import { combineReducers } from 'redux';
 import { ordersReducer, orderReducer } from './orders';
-import { paymentsReducer, paymentReducer } from './payments';
 import {
   merchantsReducer,
   merchantReducer,
@@ -11,14 +10,14 @@ import {
 } from './merchants';
 import { categoriesReducer } from './categories';
 import { authReducer, getAuthCode } from './auth';
+import { usersReducer } from './users';
 
 export default combineReducers({
   auth: authReducer,
   authCode: getAuthCode,
+  users: usersReducer,
   orders: ordersReducer,
   order: orderReducer,
-  payments: paymentsReducer,
-  payment: paymentReducer,
   categories: categoriesReducer,
   merchants: merchantsReducer,
   merchant: merchantReducer,

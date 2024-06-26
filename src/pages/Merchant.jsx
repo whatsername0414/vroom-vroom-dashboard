@@ -100,8 +100,7 @@ const Merchant = () => {
   const getInitial = (name) => {
     const names = name.split(' ');
     const firstNameInitial = names[0].charAt(0);
-    const lastNameInitial = names[names.length - 1].charAt(0);
-    return firstNameInitial + lastNameInitial;
+    return firstNameInitial;
   };
   return (
     <>
@@ -191,14 +190,31 @@ const Merchant = () => {
                     )}`}
                 </p>
                 <div class="flex border-gray-200 mx-auto mb-8 text-gray-600 items-center justify-center">
-                  <Rating name="read-only" value={merchant.ratings} readOnly />
+                  <Rating
+                    name="read-only"
+                    value={
+                      merchant.reviews.reduce(
+                        (acc, review) => acc + review.rating,
+                        0
+                      ) / merchant.reviews.length
+                    }
+                    readOnly
+                  />
                   <p class="text-sm text-gray-400 dark:text-gray-200 font-light ml-1">
                     {`${
-                      merchant.ratings
-                        ? parseFloat(merchant.ratings).toFixed(1)
+                      merchant.reviews.reduce(
+                        (acc, review) => acc + review.rating,
+                        0
+                      ) / merchant.reviews.length
+                        ? parseFloat(
+                            merchant.reviews.reduce(
+                              (acc, review) => acc + review.rating,
+                              0
+                            ) / merchant.reviews.length
+                          ).toFixed(1)
                         : parseFloat(0).toFixed(1)
-                    } (${merchant.rates} ${
-                      merchant.rates > 1 ? 'Reviews' : 'Review'
+                    } (${merchant.reviews.length} ${
+                      merchant.reviews.length > 1 ? 'Reviews' : 'Review'
                     })`}
                   </p>
                 </div>
@@ -275,15 +291,29 @@ const Merchant = () => {
                 </button>
               </div>
             </div>
-            <div className="shadow row-span-4 col-span-4 rounded-2xl bg-white md:mt-8 mt-4 pt-8 dark:bg-secondary-dark-bg">
+            <div className="shadow row-span-4 col-span-4 rounded-2xl bg-white md:mt-8 mt-4 dark:bg-secondary-dark-bg">
               {merchant?.product_sections[activeProductSectionIndex]?.products
                 ?.length > 0 ? (
                 <>
                   <div
-                    class="p-8 pt-0 pb-4 overflow-hidden hover:overflow-y-auto scrollbar-hide"
+                    class="pb-4 overflow-hidden hover:overflow-y-auto scrollbar-hide"
                     style={{ height: '85%' }}
                   >
-                    <ul class="grid grid-cols-1 sm:grid-cols-1 lg:grid-cols-2 gap-4">
+                    <div className="flex justify-end bg-light-gray mx-8 mb-8 mt-8 py-2 px-2 rounded-2xl">
+                      <button
+                        style={{ backgroundColor: currentColor }}
+                        type="button"
+                        className="h-10 px-4 border border-transparent shadow-sm text-sm rounded-2xl text-white focus:outline-none focus:ring-2 focus:ring-offset-2"
+                        onClick={() =>
+                          navigate(
+                            `/merchants/${id}/products/${merchant?.product_sections[activeProductSectionIndex]._id}`
+                          )
+                        }
+                      >
+                        Add Product
+                      </button>
+                    </div>
+                    <ul class="px-8 grid grid-cols-1 sm:grid-cols-1 lg:grid-cols-2 gap-4">
                       {merchant?.product_sections[activeProductSectionIndex] &&
                         merchant?.product_sections[
                           activeProductSectionIndex
@@ -302,20 +332,6 @@ const Merchant = () => {
                           );
                         })}
                     </ul>
-                  </div>
-                  <div className="flex items-center justify-end px-4 py-2 mt-8 mb-8 mx-6 bg-light-gray sm:px-6 rounded-2xl h-16">
-                    <button
-                      style={{ backgroundColor: currentColor }}
-                      type="button"
-                      className="h-10 px-4 border border-transparent shadow-sm text-sm rounded-2xl text-white focus:outline-none focus:ring-2 focus:ring-offset-2"
-                      onClick={() =>
-                        navigate(
-                          `/merchants/${id}/products/${merchant?.product_sections[activeProductSectionIndex]._id}`
-                        )
-                      }
-                    >
-                      Add Product
-                    </button>
                   </div>
                 </>
               ) : (
@@ -359,7 +375,7 @@ const Merchant = () => {
                     <div class="text-center mt-2 w-full">
                       <span
                         style={{ backgroundColor: currentColor }}
-                        className="p-4 text-xl text-gray-200 rounded-full"
+                        class="py-4 px-5 text-xl text-gray-200 rounded-full"
                       >
                         {getInitial(review.user.name)}
                       </span>
@@ -372,7 +388,7 @@ const Merchant = () => {
                         <Rating
                           name="read-only"
                           size="small"
-                          value={review.rate}
+                          value={review.rating}
                           readOnly
                         />
                         <p class="text-xs text-gray-400 dark:text-gray-200 font-light ml-1">

@@ -63,6 +63,18 @@ const EditProductSection = ({
                     </div>
                     <div class="lg:flex-shrink-0 mt-8 space-x-4">
                       <button
+                        style={{
+                          borderColor: currentColor,
+                          color:
+                            currentMode === 'Light' ? currentColor : 'E5E7EB',
+                        }}
+                        type="button"
+                        class="text-center h-10 w-32 py-2 px-4 border-2 shadow-sm text-sm text-gray-700 dark:text-gray-200 rounded-full focus:outline-none focus:ring-transparent"
+                        onClick={negativeButtonListener}
+                      >
+                        Cancel
+                      </button>
+                      <button
                         style={{ backgroundColor: currentColor }}
                         type="button"
                         class="text-center h-10 w-32 py-2 px-4 border border-transparent shadow-sm text-sm text-white rounded-full"
@@ -84,18 +96,6 @@ const EditProductSection = ({
                         }}
                       >
                         {currentSection ? 'Update' : 'Add'}
-                      </button>
-                      <button
-                        style={{
-                          borderColor: currentColor,
-                          color:
-                            currentMode === 'Light' ? currentColor : 'E5E7EB',
-                        }}
-                        type="button"
-                        class="text-center h-10 w-32 py-2 px-4 border-2 shadow-sm text-sm text-gray-700 dark:text-gray-200 rounded-full focus:outline-none focus:ring-transparent"
-                        onClick={negativeButtonListener}
-                      >
-                        Cancel
                       </button>
                     </div>
                   </div>

@@ -9,7 +9,7 @@ export { default as Merchant } from './Merchant';
 export { default as Product } from './Product';
 export { default as CreateProduct } from './CreateProduct';
 export { default as Editor } from './Editor';
-export { default as Customers } from './Customers';
+export { default as Riders } from './Riders';
 export { default as ColorPicker } from './ColorPicker';
 export { default as Calendar } from './Calendar';
 export { default as Area } from './Charts/Area';

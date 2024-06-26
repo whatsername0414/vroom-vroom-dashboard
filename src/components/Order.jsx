@@ -2,7 +2,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import moment from 'moment';
-import { getImageUrl } from '../utils/utils';
+import { getImageUrl, getOrderStatus } from '../utils/utils';
 
 const Order = ({ order }) => (
   <tr>
@@ -10,8 +10,8 @@ const Order = ({ order }) => (
       <div className="flex items-center">
         <div className="flex-shrink-0">
           <img
-            alt="profil"
-            src={getImageUrl(order.merchant.img_url)}
+            alt="profile"
+            src={getImageUrl(order.merchant.image)}
             className="mx-auto object-cover rounded-full h-10 w-10 dark:border-gray-200 dark:border-1"
           />
         </div>
@@ -23,30 +23,24 @@ const Order = ({ order }) => (
       </div>
     </td>
     <td className="px-5 py-5 border-t border-gray-200 dark:bg-gray-800 bg-white text-sm">
-      <p className="text-gray-900 whitespace-no-wrap dark:text-gray-200">
-        {order.customer.name}
-      </p>
+      {order.customer.name}
     </td>
     <td className="px-5 py-5 border-t border-gray-200 dark:bg-gray-800 bg-white text-sm">
-      <p className="text-gray-900 whitespace-no-wrap dark:text-gray-200">
-        {`${order.delivery_address.address} ${order.delivery_address.city}`}
-      </p>
-    </td>
-    <td className="px-5 py-5 border-t border-gray-200 dark:bg-gray-800 bg-white text-sm font-semibold">
-      <p className="text-gray-900 whitespace-no-wrap dark:text-gray-200">
-        ₱{order.order_detail.total_price + order.order_detail.delivery_fee}
-      </p>
+      {order.address.city}
     </td>
     <td className="px-5 py-5 border-t border-gray-200 dark:bg-gray-800 bg-white text-sm">
-      <p className="text-gray-900 whitespace-no-wrap dark:text-gray-200">
-        {moment(order.created_at).format('L')}
-      </p>
+      ₱
+      {order.products.reduce((total, product) => total + product.price, 0) +
+        order.delivery_fee}
+    </td>
+    <td className="px-5 py-5 border-t border-gray-200 dark:bg-gray-800 bg-white text-sm">
+      {moment(order.created_at).format('L')}
     </td>
     <td className="px-5 py-5 border-t border-gray-200 dark:bg-gray-800 bg-white text-sm font-semibold">
       <p
-        className={`px-2 py-1 text-center text-white dark:text-gray-200 bg-status-${order.status.ordinal} rounded-full`}
+        className={`px-2 py-1 text-center text-white dark:text-gray-200 bg-status-${order.status} rounded-full`}
       >
-        {order.status.label}
+        {getOrderStatus(order.status)}
       </p>
     </td>
     <td className="px-5 py-5 border-t border-gray-200 dark:bg-gray-800 bg-white text-sm">

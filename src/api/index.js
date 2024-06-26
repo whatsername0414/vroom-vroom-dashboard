@@ -5,8 +5,13 @@ const url = 'http://localhost:5000/api/v1';
 //Authentication
 export const login = (body) => axios.post(`${url}/auth/login`, body);
 export const register = (body) =>
-  axios.post(`${url}/auth/register/admin`, body);
+  axios.post(`${url}/auth/register/rider`, body);
 export const getAuthCode = (body) => axios.post(`${url}/auth/email-otp`, body);
+export const registerRider = (body) =>
+  axios.post(`${url}/auth/register/rider`, body);
+
+//User
+export const user = (type) => axios.get(`${url}/users?type=${type}`);
 
 //Payments
 export const getPayments = (config) => axios.get(`${url}/payments`, config);
@@ -40,23 +45,12 @@ export const editProductSection = (
   axios.put(`${url}/merchants/${merchantId}/${productSectionId}`, body, config);
 export const deleteProductSection = (merchantId, productSectionId, config) =>
   axios.delete(`${url}/merchants/${merchantId}/${productSectionId}`, config);
-export const createProduct = (id, productSectionId, body, config) =>
-  axios.post(
-    `${url}/merchants/${id}/products/${productSectionId}`,
-    body,
-    config
-  );
-export const updateProduct = (id, productSectionId, productId, body, config) =>
-  axios.put(
-    `${url}/merchants/${id}/products/${productSectionId}/${productId}`,
-    body,
-    config
-  );
-export const deleteProduct = (id, productSectionId, productId, config) =>
-  axios.delete(
-    `${url}/merchants/${id}/products/${productSectionId}/${productId}`,
-    config
-  );
+export const createProduct = (merchantId, body, config) =>
+  axios.post(`${url}/merchants/${merchantId}/products`, body, config);
+export const updateProduct = (merchantId, body, config) =>
+  axios.put(`${url}/merchants/${merchantId}/products`, body, config);
+export const deleteProduct = (merchantId, config) =>
+  axios.delete(`${url}/merchants/${merchantId}/products`, config);
 //Category
 export const getCategories = (type) =>
   axios.get(`${url}/categories?type=${type}`);

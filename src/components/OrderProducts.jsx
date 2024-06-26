@@ -2,6 +2,7 @@
 /* eslint-disable jsx-a11y/control-has-associated-label */
 import React from 'react';
 import Product from './OrderProduct';
+import OrderProduct from './OrderProduct';
 
 const OrderProducts = ({ products }) => {
   return (
@@ -26,13 +27,13 @@ const OrderProducts = ({ products }) => {
                   </th>
                   <th
                     scope="col"
-                    className="px-5 py-4 bg-white dark:bg-gray-800 dark:text-gray-200 border-b border-gray-200 text-gray-800  text-left text-xs uppercase font-normal"
+                    className="px-5 py-4 bg-white dark:bg-gray-800 dark:text-gray-200 border-b border-gray-200 text-gray-800 text-xs uppercase font-normal"
                   >
                     Amount
                   </th>
                   <th
                     scope="col"
-                    className="px-5 py-4 bg-white dark:bg-gray-800 dark:text-gray-200 border-b border-gray-200 text-gray-800  text-left text-xs uppercase font-normal"
+                    className="px-5 py-4 bg-white dark:bg-gray-800 dark:text-gray-200 border-b border-gray-200 text-gray-800 text-xs uppercase font-normal"
                   >
                     Quantity
                   </th>
@@ -51,8 +52,8 @@ const OrderProducts = ({ products }) => {
                 </tr>
               </thead>
               <tbody>
-                {products.map((product) => (
-                  <Product product={product} key={product._id} />
+                {products.map((order) => (
+                  <OrderProduct product={order} key={order} />
                 ))}
               </tbody>
             </table>

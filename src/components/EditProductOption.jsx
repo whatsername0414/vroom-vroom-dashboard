@@ -153,6 +153,17 @@ const EditProductOption = ({
                     </div>
                     <div class="flex justify-end mt-8 py-2 bg-light-gray sm:px-6 rounded-2xl space-x-2">
                       <button
+                        style={{
+                          borderColor: currentColor,
+                          color: currentColor,
+                        }}
+                        type="button"
+                        class="text-center h-10 w-32 py-2 px-4 border-2 shadow-sm text-sm rounded-full text-white"
+                        onClick={negativeButtonListener}
+                      >
+                        Cancel
+                      </button>
+                      <button
                         style={{ backgroundColor: currentColor }}
                         type="button"
                         class="text-center h-10 w-32 py-2 px-4 border border-transparent shadow-sm text-sm rounded-full text-white"
@@ -182,17 +193,6 @@ const EditProductOption = ({
                         }}
                       >
                         {newSection || currentOption ? 'Update' : 'Add'}
-                      </button>
-                      <button
-                        style={{
-                          borderColor: currentColor,
-                          color: currentColor,
-                        }}
-                        type="button"
-                        class="text-center h-10 w-32 py-2 px-4 border-2 shadow-sm text-sm rounded-full text-white"
-                        onClick={negativeButtonListener}
-                      >
-                        Cancel
                       </button>
                     </div>
                   </div>

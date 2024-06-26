@@ -23,7 +23,6 @@ const getMillis = (time) => {
 };
 
 const EditMerchantDetails = ({
-  currentCategories,
   currentMerchant,
   positiveButtonListener,
   negativeButtonListener,
@@ -44,7 +43,7 @@ const EditMerchantDetails = ({
       setMerchant({
         ...merchant,
         name: currentMerchant?.name,
-        img_url: currentMerchant?.image,
+        image: currentMerchant?.image,
         opening: moment
           .duration(currentMerchant?.opening, 'seconds')
           .format('hh:mm', {
@@ -210,7 +209,7 @@ const EditMerchantDetails = ({
                           }
                           placeholder="Merchant Name"
                         />
-                        <label
+                        {/* <label
                           for="categories"
                           class="text-gray-700 dark:text-gray-200 text-left text-sm mt-2"
                         >
@@ -242,8 +241,8 @@ const EditMerchantDetails = ({
                               )}
                             </span>
                           ))}
-                        </div>
-                        <div class="relative mt-2 inline-block text-left">
+                        </div> */}
+                        {/* <div class="relative mt-2 inline-block text-left">
                           <div>
                             <button
                               type="button"
@@ -295,9 +294,9 @@ const EditMerchantDetails = ({
                               </div>
                             </div>
                           )}
-                        </div>
+                        </div> */}
                         <label
-                          for="categories"
+                          for="time"
                           class="text-gray-700 dark:text-gray-200 text-left text-sm mt-2"
                         >
                           Time
@@ -374,8 +373,8 @@ const EditMerchantDetails = ({
                                 TOAST_OBJECT
                               );
                             } else if (
-                              merchant.img_url === undefined ||
-                              merchant.img_url === ''
+                              merchant.image === undefined ||
+                              merchant.image === ''
                             ) {
                               toast.error(
                                 'Merchant image cannot be empty!',

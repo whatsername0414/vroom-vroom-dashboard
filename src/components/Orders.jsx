@@ -12,50 +12,59 @@ const Orders = ({ orders }) => (
             <tr>
               <th
                 scope="col"
-                className="px-5 py-3 bg-white dark:bg-gray-800 dark:text-gray-200 border-b border-gray-200 text-gray-800  text-left text-sm uppercase font-normal"
+                className="px-5 py-3 bg-white dark:bg-gray-800 dark:text-gray-200 border-b border-gray-200 text-gray-800 text-sm uppercase font-normal"
               >
                 Merchant
               </th>
               <th
                 scope="col"
-                className="px-5 py-3 bg-white dark:bg-gray-800 dark:text-gray-200 border-b border-gray-200 text-gray-800  text-left text-sm uppercase font-normal"
+                className="px-5 py-3 bg-white dark:bg-gray-800 dark:text-gray-200 border-b border-gray-200 text-gray-800 text-sm uppercase font-normal"
               >
                 Customer
               </th>
               <th
                 scope="col"
-                className="px-5 py-3 bg-white dark:bg-gray-800 dark:text-gray-200 border-b border-gray-200 text-gray-800  text-left text-sm uppercase font-normal"
+                className="px-5 py-3 bg-white dark:bg-gray-800 dark:text-gray-200 border-b border-gray-200 text-gray-800 text-sm uppercase font-normal"
               >
                 Location
               </th>
               <th
                 scope="col"
-                className="px-5 py-3 bg-white dark:bg-gray-800 dark:text-gray-200 border-b border-gray-200 text-gray-800  text-left text-sm uppercase font-normal"
+                className="px-5 py-3 bg-white dark:bg-gray-800 dark:text-gray-200 border-b border-gray-200 text-gray-800 text-sm uppercase font-normal"
               >
                 Amount
               </th>
               <th
                 scope="col"
-                className="px-5 py-3 bg-white dark:bg-gray-800 dark:text-gray-200 border-b border-gray-200 text-gray-800  text-left text-sm uppercase font-normal"
+                className="px-5 py-3 bg-white dark:bg-gray-800 dark:text-gray-200 border-b border-gray-200 text-gray-800 text-sm uppercase font-normal"
               >
                 Date
               </th>
               <th
                 scope="col"
-                className="px-5 py-3 bg-white dark:bg-gray-800 dark:text-gray-200 border-b border-gray-200 text-gray-800  text-left text-sm uppercase font-normal"
+                className="px-5 py-3 bg-white dark:bg-gray-800 dark:text-gray-200 border-b border-gray-200 text-gray-800 text-sm uppercase font-normal"
               >
                 Status
               </th>
               <th
                 scope="col"
-                className="px-5 py-3 bg-white dark:bg-gray-800 dark:text-gray-200 border-b border-gray-200 text-gray-800  text-left text-sm uppercase font-normal"
-              />
+                className="px-5 py-3 bg-white dark:bg-gray-800 dark:text-gray-200 border-b border-gray-200 text-gray-800 text-sm uppercase font-normal"
+              >
+                Action
+              </th>
             </tr>
           </thead>
-          <tbody>
-            {orders?.map((order) => (
-              <Order order={order} key={order._id} />
-            ))}
+          <tbody className="text-center">
+            {orders &&
+              (orders.length === 0 ? (
+                <tr>
+                  <td colSpan="7" className="py-16">
+                    No orders with pending approval
+                  </td>
+                </tr>
+              ) : (
+                orders.map((order) => <Order order={order} key={order._id} />)
+              ))}
           </tbody>
         </table>
       </div>

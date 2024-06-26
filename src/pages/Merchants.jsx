@@ -35,13 +35,7 @@ const Merchants = () => {
       {(merchantsLoading || merchantLoading) && <Loading />}
       {merchants && (
         <div class="m-2 md:m-10 mt-24 p-8 md:p-8 bg-white rounded-2xl max-h-full dark:bg-secondary-dark-bg dark:text-gray-200">
-          <div class="md:grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
-            {merchants &&
-              merchants.map((merchant) => {
-                return <Merchant merchant={merchant} key={merchant._id} />;
-              })}
-          </div>
-          <div className="px-4 py-2 mt-8 bg-light-gray text-right sm:px-6 rounded-2xl">
+          <div className="py-2 px-2 mb-8 bg-light-gray text-right rounded-2xl">
             <button
               style={{ backgroundColor: currentColor }}
               type="button"
@@ -52,6 +46,12 @@ const Merchants = () => {
             >
               Add Merchant
             </button>
+          </div>
+          <div class="md:grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
+            {merchants &&
+              merchants.map((merchant) => {
+                return <Merchant merchant={merchant} key={merchant._id} />;
+              })}
           </div>
         </div>
       )}

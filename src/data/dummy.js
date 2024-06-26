@@ -522,7 +522,7 @@ export const links = [
         icon: <MdOutlineStorefront />,
       },
       {
-        name: 'customers',
+        name: 'riders',
         icon: <RiContactsLine />,
       },
     ],

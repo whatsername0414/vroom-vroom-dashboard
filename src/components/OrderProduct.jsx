@@ -5,24 +5,23 @@ import { getImageUrl } from '../utils/utils';
 const OrderProduct = ({ product }) => (
   <tr>
     <td className="px-5 py-5 dark:bg-gray-800 border-t border-gray-200 bg-white text-xs">
-      {console.log(getImageUrl(product.product_img_url))}
       <img
         alt="merchant_image"
-        src={getImageUrl(product.product_img_url)}
+        src={getImageUrl(product.product.image)}
         className="object-cover rounded-full h-10 w-10 "
       />
     </td>
     <td className="px-5 py-5 dark:bg-gray-800 border-t border-gray-200 bg-white text-sm">
       <p className="text-gray-700 whitespace-no-wrap dark:text-gray-200">
-        {product.name}
+        {product.product.name}
       </p>
     </td>
-    <td className="px-5 py-5 dark:bg-gray-800 border-t border-gray-200 bg-white text-sm font-semibold">
+    <td className="px-5 py-5 dark:bg-gray-800 border-t border-gray-200 bg-white text-sm font-semibold text-center">
       <p className="text-gray-700 whitespace-no-wrap dark:text-gray-200">
         ₱{product.price}
       </p>
     </td>
-    <td className="px-5 py-5 dark:bg-gray-800 border-t border-gray-200 bg-white text-sm">
+    <td className="px-5 py-5 dark:bg-gray-800 border-t border-gray-200 bg-white text-sm text-center">
       <p className="text-gray-700 whitespace-no-wrap dark:text-gray-200">
         {product.quantity}
       </p>
@@ -35,7 +34,9 @@ const OrderProduct = ({ product }) => (
               <p
                 className="text-gray-700 whitespace-no-wrap dark:text-gray-200"
                 key={option._id}
-              >{`${option.option_type}: ${option.name}`}</p>
+              >
+                {option.name}
+              </p>
             );
           })}
           {product.options.length > 2 && (
@@ -52,7 +53,7 @@ const OrderProduct = ({ product }) => (
     </td>
     <td className="px-5 py-5 dark:bg-gray-800 border-t border-gray-200 bg-white text-sm">
       <p className="text-gray-700 whitespace-no-wrap dark:text-gray-200">
-        {product.instructions ? product.instructions : 'None'}
+        {product.notes ? product.notes : 'None'}
       </p>
     </td>
   </tr>
